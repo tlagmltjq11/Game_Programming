@@ -48,6 +48,11 @@
 <br>
 
 ## 참고링크
+LOD<br>
+https://wonjayk.tistory.com/192?category=535169<br>
+https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=nowcome&logNo=130031941858<br>
+<br>
+
 https://copynull.tistory.com/308 (쿼드트리를 사용한 오클루전 컬링 구현)<br>
 https://chessire.tistory.com/entry/%EC%BF%BC%EB%93%9C%ED%8A%B8%EB%A6%ACQuad-tree <br>
 https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=daroobil&logNo=110160605 <br>
