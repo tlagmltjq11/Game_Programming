@@ -208,3 +208,31 @@ OffMeshLink를 생성하고자하는 오브젝트의 OffMeshLink Generation stat
 체크 해제해주어야 한다. 그 후 이동, 애니메이션 관련 코드를 직접 구현해야 한다.** ⭐⭐<br>
 <br>
 <br>
+
+## 🔔 DesiredVelocity (NavMeshAgent)
+NavMeshAgent의 desiredVelocity은 목적지로 향하는 목표 속도를 나타낸다.<br>
+현재 속도로 설정하고 싶은 원하는 속도 값을 나타내는 것이지 실제 속도가 아니다.<br>
+desiredVelocity 속도로 움직이게 하고 싶지만 실제론 관성이나 어떤 장애물에 의해 실제 속도(velocity)와는 차이가 날 수 있다.<br>
+예를 들어 우리가 원하는 속도가 50인데 현재 캐릭터가 장애물에 막혀 제자리에서 뛰고 있다면 속도는 실제로는 0 이다.<br>
+<br>
+
+```c#
+m_animator.SetFloat("Speed", m_agent.desiredVelocity.magnitude);
+```
+<br>
+
+위 예시는 desiredVelocity 값을 이용해서 오브젝트의 애니메이션을 컨트롤 하는 예이다.<br>
+무엇인가에 막혀있다고 하더라도 즉 실제 속도는 0이라고 해도 달리는 애니메이션을 재생시키기 위함.<br>
+<br>
+<br>
+
+## 🔔 NavMesh.SamplePosition
+
+```c#
+NavMesh.SamplePosition(randomPos, out hit, distance, areaMask);
+```
+
+areaMask 에 해당하는 NavMesh 중에서 maxDistance 반경 내에서 randomPos와 가장 가까운 위치를 찾아서 그 결과를 hit에 담는다.<br>
+
+<br>
+<br>
