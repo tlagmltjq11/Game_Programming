@@ -47,6 +47,12 @@
 <br>
 <br>
 
+## BSP 알고리즘
+로그라이크 류 같은 게임에서 플레이 때 마다 맵이 랜덤하게 바뀌는 경우가 있는데 해당 시스템을 구현하는데 좋은 포스팅이 있다.<br>
+https://blog.naver.com/jh20s/222343029141 <br>
+<br>
+<br>
+
 ## 참고링크
 LOD<br>
 https://wonjayk.tistory.com/192?category=535169<br>
