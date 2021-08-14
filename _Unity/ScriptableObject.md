@@ -149,5 +149,7 @@ public class OrcMonsterStat : MonsterStat
 
 그리고 스크립터블 오브젝트는 에셋 파일 형태로 관리되기 때문에 에셋번들 태그를 이용해서 에셋 번들로 빌드하고 배포하는 방식으로 게임 데이터를 업데이트시키는데 사용할 수도 있다.
 
+-> 빌드파일에 포함되기 때문에 유저들이 조작할 가능성이 존재한다. 고로 멀티 게임 같은 경우 중요 데이터를 스크립터블 오브젝트로 운용해서는 안된다.
 
-https://everyday-devup.tistory.com/53
+https://everyday-devup.tistory.com/53 <br>
+https://www.youtube.com/watch?v=7Qt4QNhM4nY <br>
