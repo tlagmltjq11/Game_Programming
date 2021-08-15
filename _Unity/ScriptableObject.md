@@ -1,4 +1,11 @@
 ## ScriptableObject
+
+
+
+![8](https://user-images.githubusercontent.com/43705434/129469421-bac45e71-ed31-4fdf-82da-a1208ab2d2b9.PNG)
+![9](https://user-images.githubusercontent.com/43705434/129469422-d2dd634b-4459-4498-a72d-c74b123048f6.PNG)
+
+
 스크립터블 오브젝트(Scriptable Object)는 유니티에서 제공하는 대량의 데이터를 저장하는 데 사용할 수 있는 데이터 컨테이너이다. 스크립터블 오브젝트를 사용하면 값의 사본이 생성되는 것을 방지하여 프로젝트의 메모리 사용을 줄일 수 있으며 이것은 모노비헤이비어(MonoBehaviour) 스크립트에 변경되지 않는 데이터를 저장하는 프리팹을 사용하는 프로젝트에서 유용하다고 한다. 변경되지 않는 데이터를 사용하는 프리팹의 데이터를 일반 변수로 구현할 경우 인스턴스화 할때마다 프리펩에 이 데이터에 대한 자체 사본이 생성되는데, 스크립터블 오브젝트를 사용하면 메모리에 스크립터블 오브젝트의 데이터 사본만을 저장하고 이를 참조하는 방식으로 작동한다.
 스크립터블 오브젝트 클래스는 유니티에서 기본적으로 제공하는 것으로 모노비헤이비어 클래스와 마찬가지로 기본 유니티 오브젝트(Unity Object)에서 파생되지만, 모노비헤이비어와 달리, 게임 오브젝트에 컴포넌트로 부착할 수 없고, 프로젝트에 에셋으로 저장된다.
 
@@ -54,6 +61,8 @@ MonoBehaviour:
 : ScriptableObject는 데이터를 참조 형태로 오브젝트에서 가져올 수 있게 함으로써 메모리 할당을 최소화하고 고유한 값을 가질 수 있게함
 프리펩에서 변화가 없는 동일한 데이터를 사용하는 경우, ScriptableObject로 해당 데이터를 관리하면 편리성과 최적화 효과를 얻을 수 있음
 
+![1](https://user-images.githubusercontent.com/43705434/129469410-d3cd7408-35dc-43a7-a4ec-a08bf61b8517.PNG)
+
 ● 스크립터블 오브젝트의 사용
 
 ▶ 상단의 몬스터 예제를 실제로 Unity에서 구현하는 방법
@@ -72,8 +81,11 @@ public class MonsterStat : ScriptableObject
 ```
 <br>
 
+![2](https://user-images.githubusercontent.com/43705434/129469412-808779f9-30fd-48af-98f4-825ac6c15bee.PNG)
+
 2. MonsterStat 이라는 ScriptableObject를 Menu를 통해 생성
 
+![3](https://user-images.githubusercontent.com/43705434/129469415-a0244d19-23dd-44f4-8288-56fead5108dd.PNG)
 
 3. 사용하려는 오브젝트와 컴포넌트를 만들고 MonsterStat ScriptableObject를 연결 시킴
 
@@ -114,8 +126,13 @@ public class Elf : MonoBehaviour
 ```
 <br>
 
-4. 만약 연결한 데이터의 값을 변경하는 경우, 변경된 데이터 값이 참조하는 모든 오브젝트에 동일하게 적용 됨
 
+![4](https://user-images.githubusercontent.com/43705434/129469417-a3eaae25-ca7f-4dbb-8d34-a344659c7b4b.PNG)
+![5](https://user-images.githubusercontent.com/43705434/129469418-c132a8b8-eee6-469f-bdb3-9be05b66195a.PNG)
+
+4. 만약 연결한 데이터의 값을 변경하는 경우, 변경된 데이터 값이 참조하는 모든 오브젝트에 동일하게 적용 됨
+![6](https://user-images.githubusercontent.com/43705434/129469419-80d7e15c-b2c9-456e-a171-6bed0815ecc6.PNG)
+![7](https://user-images.githubusercontent.com/43705434/129469420-a1b05ffc-a287-4750-a1f9-e452cf08c221.PNG)
 
 5. ScriptableObject는 상속해서 사용도 가능
 ```c#
@@ -128,9 +145,12 @@ public class OrcMonsterStat : MonsterStat
 	public int def;
 }
 ```
+![8](https://user-images.githubusercontent.com/43705434/129469421-bac45e71-ed31-4fdf-82da-a1208ab2d2b9.PNG)
 
 6. 다른 ScriptableObject를 변수로 사용할 수 있어 데이터의 **조합**도 가능
 -> OrcStat내에 MonsterStat 스크립터블 오브젝트를 변수로 등록한 것.
+
+![9](https://user-images.githubusercontent.com/43705434/129469422-d2dd634b-4459-4498-a72d-c74b123048f6.PNG)
 
 ● ScriptableObject의 의견
 
