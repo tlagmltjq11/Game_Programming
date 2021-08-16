@@ -41,12 +41,8 @@ MonoBehaviour:
 : OnEable => ScriptableObject가 instantiated/loaded 될 때,<br>
 ScriptableObject.CreateInstance() 함수 호출 시,<br>
 에디터에서 스크립트가 컴파일 된 후에 호출<br> 
-<br>
-
 : OnDisable => ScriptableObject가 파괴되기 전에 호출,<br>
 에디터에서 스크립트가 컴파일 되기 전에 호출<br>
-<br>
-
 : OnDestroy => ScriptableObject가 파괴 될때 ( Object.Destroy )<br>
 <br>
 
