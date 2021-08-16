@@ -138,6 +138,7 @@ public class Elf : MonoBehaviour
 <br>
 
 4. 만약 연결한 데이터의 값을 변경하는 경우, 변경된 데이터 값이 참조하는 모든 오브젝트에 동일하게 적용 된다.<br>
+
 ![6](https://user-images.githubusercontent.com/43705434/129469419-80d7e15c-b2c9-456e-a171-6bed0815ecc6.PNG)<br>
 
 ![7](https://user-images.githubusercontent.com/43705434/129469420-a1b05ffc-a287-4750-a1f9-e452cf08c221.PNG)<br>
