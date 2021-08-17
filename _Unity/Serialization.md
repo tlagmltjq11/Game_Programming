@@ -1,4 +1,8 @@
 ## Serialization
+
+![직렬화](https://user-images.githubusercontent.com/43705434/129681875-90cc5ca8-836c-43e2-96ad-40fdf0ecc544.PNG)<br>
+<br>
+
 의미 자체는 **특정 객체(데이터)를 바이트의 나열(Stream) 혹은 스트링으로 바꿔서 파일이나 네트워크통신으로 Stream 가능하게 해주는 것이다.**<br>
 **-> 바이너리 스트림 or 스트링 형태로 변환했기 때문에 데이터베이스에 저장/읽기, 네트워크로 송신/수신이 간편해진다.**<br>
 반대로 직렬화된 데이터를 원래 객체(데이터)로 바꿔주는 것은 Deserialize(디시리얼라이즈, 역직렬화) 라고 한다.<br>
@@ -49,6 +53,10 @@ Color, Color32, LayerMask, AnimationCurve, Gradient, RectOffset, GUIStyle<br>
 
 직렬화가 지원되지 않는 타입은 **iserializationcallbackreceiver 인터페이스를 상속받아 직렬화가 가능한<br>
 필드타입으로 수정하여 사용할 수 있다.**<br>
+
+**클래스 직렬화를 통해 인스펙터에 노출되는 예시**<br>
+![클래스직렬화1](https://user-images.githubusercontent.com/43705434/129681870-2d38517a-f077-45ec-abef-bbf829c266e1.PNG)<br>
+![클래스직렬화2](https://user-images.githubusercontent.com/43705434/129681879-a0f8380a-4336-461b-9616-db6613b5198c.PNG)<br>
 <br>
 <br>
 
@@ -147,7 +155,8 @@ ToArray()를 사용하면 바이트 배열형태로 반환하고 ToArray() 한 �
 이 메모리 스트림의 바이너리 포매터의 디시리얼라이즈 기능을 사용해 디시리얼라이즈한다. 최종적으로 해당 타입으로 형변환 하여 반환하게 된다.<br>
 <br>
 
-예시1
+![직렬화예시1](https://user-images.githubusercontent.com/43705434/129681886-2c0c536c-b116-4cfb-b932-694a2e07b167.PNG)<br>
+<br>
   
 시리얼라이즈된 데이터를 에디터로 열어보면 위와같이 보인다.<br>
 해당 데이타를 저장이나 전송할 때 사용하게된다. 그전에 MD5나 SHA-1 등의 암호화를 거치기를 권장한다.<br>
@@ -159,6 +168,10 @@ ToArray()를 사용하면 바이트 배열형태로 반환하고 ToArray() 한 �
 
 
 ## 예시 - Serializer 사용
+
+![직렬화예시2](https://user-images.githubusercontent.com/43705434/129681888-e72dca80-f438-4337-be07-dd9139c5a9e0.PNG)<br>
+<br>
+
 게임 정보를 담당하는 클래스를 만들고 이것을 인스턴스화한다. UI에서 입력된 값들로 정보를 갱신한다.<br>
 저장버튼을 누르면 해당 인스턴스가 시리얼라이즈 되어 스트링형태로 저장된다.<br>
 로드 버튼을 누르면 반대의 과정이 일어난다.<br>
