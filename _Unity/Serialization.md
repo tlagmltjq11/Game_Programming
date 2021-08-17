@@ -52,7 +52,273 @@ Color, Color32, LayerMask, AnimationCurve, Gradient, RectOffset, GUIStyle<br>
 <br>
 <br>
 
-## 예시
+## 예시 - Serializer 구현
+```c#
+/*
+ * 스트링으로 시리얼라이즈 & 디시리얼라이즈
+ * 바이트배열로 시리얼라이즈 & 디시리얼라이즈
+*/
+ 
+using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+ 
+public class Serializer
+{
+    #region serialize
+ 
+    //오브젝트 시리얼라이즈 후 결과 값을 스트링으로 변환하여 반환
+    public static string ObjectToStringSerialize(object obj)
+    {
+        using (var memoryStream = new MemoryStream())
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(memoryStream, obj);
+            memoryStream.Flush();
+            memoryStream.Position = 0;
+ 
+            return Convert.ToBase64String(memoryStream.ToArray());
+        }
+    }
+ 
+    //오브젝트를 시리얼라이즈 후 바이트 배열 형태로 반환
+    public static byte[] ObjectToByteArraySerialize(object obj)
+    {
+        using (var memoryStream = new MemoryStream())
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(memoryStream, obj);
+            memoryStream.Flush();
+            memoryStream.Position = 0;
+ 
+            return memoryStream.ToArray();
+        }
+    }
+ 
+    #endregion
+ 
+    #region Deserialize
+ 
+    //스트링 타입의 시리얼라이즈된 데이타를 디시리얼라이즈 후 해당 타입으로 변환하여 반환
+    public static T Deserialize<T>(string xmlText)
+    {
+        if (xmlText != null && xmlText != String.Empty)
+        {
+            byte[] b = Convert.FromBase64String(xmlText);
+            using (var stream = new MemoryStream(b))
+            {
+                var formatter = new BinaryFormatter();
+                stream.Seek(0, SeekOrigin.Begin);
+                return (T)formatter.Deserialize(stream);
+            }
+        }
+        else
+        {
+            return default(T);
+        }
+    }
+ 
+    //바이트 배열 형태의 시리얼라이즈된 데이타를 디시리얼라이즈 후 해당 타입으로 변환하여 반환
+    public static T Deserialize<T>(byte[] byteData)
+    {
+        using (var stream = new MemoryStream(byteData))
+        {
+            var formatter = new BinaryFormatter();
+            stream.Seek(0, SeekOrigin.Begin);
+            return (T)formatter.Deserialize(stream);
+        }
+    }
+ 
+    #endregion
+}
+```
+<br>
+
+게임 중 생성된 인스턴스를 생성하고 게임이 진행 되면서 인스턴스가 가지는 값들이 변경되었다.<br>
+그리고 이 상태를 그대로 저장하기위해 또는 서버로 전송하기 위해 시리얼라이즈가 필요한 상황이다.<br>
+이때 인스턴스를 파라미터로 시리얼라이저에게 전달한다.<br>
+**시리얼라이저는 전달받은 오브젝트를 시리얼라이즈 후 스트링 또는 바이트 배열 형태로 반환한다.**<br>
+반환받은 데이타를 저장또는 서버로 전달이 가능하다.<br>
+인스턴스를 시리얼라이즈하기 위해서는 **바이너리 포매터(BinaryFormatter)와 메모리 스트림(MemoryStream)이 필요하다.**<br>
+**시리얼라이즈 기능은 바이너리 포매터에 포함되어있다.** 이것으로 시리얼라이즈 할 때 파라미터를 인스턴스와 메모리 스트림을 전달하면<br>
+메모리 스트림에 인스턴스가 직렬화되어 들어간다. 여기까지의 과정은 똑같고, **메모리 스트림을 어떻게 가공하느냐에 따라 반환 값이 달라진다.<br>
+ToArray()를 사용하면 바이트 배열형태로 반환하고 ToArray() 한 값을 ToBase64String()로 컨버팅하게 되면 스트링 형태로 반환하게된다.**<br>
+디시리얼라이즈는 이과정을 거꾸로한다고 생각하면 된다. 스트링 타입은 바이트 배열로 변환하고 바이트 배열은 메모리 스트림으로 들어간다.<br>
+이 메모리 스트림의 바이너리 포매터의 디시리얼라이즈 기능을 사용해 디시리얼라이즈한다. 최종적으로 해당 타입으로 형변환 하여 반환하게 된다.<br>
+<br>
+
+예시1
+  
+시리얼라이즈된 데이터를 에디터로 열어보면 위와같이 보인다.<br>
+해당 데이타를 저장이나 전송할 때 사용하게된다. 그전에 MD5나 SHA-1 등의 암호화를 거치기를 권장한다.<br>
+
+※ 주의 'base64String()'로 컨버팅 하지않고 그냥 ToString()을 하게되면 다른 플랫폼으로 전달 시 전달 된 곳에서 인식하지 못하는 경우도 있다.<br>
+반드시 base64 컨버팅하는 것을 추천한다.<br>
+<br>
+<br>
+
+
+## 예시 - Serializer 사용
+게임 정보를 담당하는 클래스를 만들고 이것을 인스턴스화한다. UI에서 입력된 값들로 정보를 갱신한다.<br>
+저장버튼을 누르면 해당 인스턴스가 시리얼라이즈 되어 스트링형태로 저장된다.<br>
+로드 버튼을 누르면 반대의 과정이 일어난다.<br>
+스트링형태로 저장된 데이타를 디시리얼라이즈 과정을 거치고 최종적으로 게임 정보 인스턴스를 반환한다.<br>
+반환된 인스턴스의 정보들을 UI에 표시한다<br>
+<br>
+  
+```c#  
+/*
+ * UI 모음
+ * 이름 입력, 표시
+ * 리벨 입력, 표시
+*/
+public class UIview : MonoBehaviour
+{
+    public Text textName;   //이름
+    public Text textLevel;  //레벨
+ 
+    public Text inputName;    //입력필드의 이름 값
+    public Text inputLevel;   //입력필드의 레벨 값
+}
+```
+화면에 표시되는 UI를 모아둠<br>
+<br>
+
+```c#
+/*
+ * 게임 초기화
+ * 게임 저장, 게임 로드 버튼 클릭 처리
+*/
+public class Controller : MonoBehaviour
+{
+    public UIview uiView;       //UIview 컴포넌트 캐싱
+    private SaveLoad saveLoad;  //저장/불러오기 객체
+    private GameInfo gameInfo;  //게임 정보 객체
+ 
+    void Start()
+    {
+        InitGame();
+    }
+ 
+    //게임 초기화
+    private void InitGame()
+    {
+        //저장/불러오기 객체 초기화
+        saveLoad = new SaveLoad();
+        //게임 정보 객체 초기화
+        gameInfo = new GameInfo("teddy", 1);
+ 
+        //초기화한 게임 정보를 화면에 정보 표시
+        uiView.textName.text = gameInfo.GetUserName();
+        uiView.textLevel.text = gameInfo.GetUserLevel().ToString();
+    }
+ 
+    //저장 버튼 클릭
+    public void OnclickSaveButton()
+    {
+        //입력한 정보를 화면에 표시
+        //uiView.textName.text = uiView.inputName.text;
+        //uiView.textLevel.text = uiView.inputLevel.text;
+ 
+        //게임 정보 입력
+        gameInfo.SetUserName(uiView.inputName.text);
+        gameInfo.SetUserLevel(Convert.ToInt32(uiView.inputLevel.text));
+ 
+        //입력한 정보를 저장
+        saveLoad.SaveGameInfo(gameInfo);
+    }
+ 
+    //불러오기 버튼 클릭
+    public void OnclickLoadButton()
+    {
+        //저장된 게임 정보 로드하여 게임 정보 객체에 할당
+        gameInfo = saveLoad.LoadGameInfo();
+ 
+        //불러온 게임 정보를 화면에 표시
+        uiView.textName.text = gameInfo.GetUserName();
+        uiView.textLevel.text = gameInfo.GetUserLevel().ToString();
+    }
+}
+```
+게임이 시작되고 정보들을 초기화한다. UI 버튼에 대한 입력을 받아서 각각의 기능을 처리한다.<br>
+<br>
+
+```c#
+/*
+ * 저장할 게임 정보 클래스
+*/
+[Serializable]
+public class GameInfo 
+{
+    private string userName;    //유저 이름
+    private int userLevel;      //유저 레벨
+ 
+    public GameInfo(string userName, int userLevel)
+    {
+        this.userName = userName;
+        this.userLevel = userLevel;
+    }
+ 
+    //유저이름 가저오기
+    public string GetUserName()
+    {
+        return this.userName;
+    }
+ 
+    //유저 레벨 가져오기
+    public int GetUserLevel()
+    {
+        return this.userLevel;
+    }
+ 
+    //유저 이름 할당
+    public void SetUserName(string userName)
+    {
+        this.userName = userName;
+    }
+ 
+    //유저 레벨 할당
+    public void SetUserLevel(int userLevel)
+    {
+        this.userLevel = userLevel;
+    }
+}
+```
+게임에서 사용되는 정보들을 담은 클래스이다. 이 클래스에는 [Serializable] 이 붙어있어 시리얼라이즈가 가능하다<br>
+<br>
+
+```c#
+/*
+ * 게임을 저장하고 로드합니다.
+*/
+public class SaveLoad
+{
+    //저장/로드 할 때 필요한 키 값
+    private readonly string SAVEKEY = "GAMEINFO_SAVE_KEY";
+ 
+    //게임 정보 저장하기
+    public void SaveGameInfo(GameInfo gi)
+    {
+        //객체를 스트링형태로 변환
+        string saveData = Serializer.ObjectToStringSerialize(gi);
+        //변환된 스트링 값을 PlayerPrefs에 저장
+        PlayerPrefs.SetString(SAVEKEY, saveData);
+    }
+ 
+    //게임 정보 불러오기
+    public GameInfo LoadGameInfo()
+    {
+        //PlayerPrefs에 저정된 스트링 형태의 게임 정보 가져오기
+        string laodData = PlayerPrefs.GetString(SAVEKEY, string.Empty);
+        //스트링형태의 정보를 게임 정보 타입으로 디시리얼라이즈 후 반환
+        return Serializer.Deserialize<gameinfo>(laodData);
+    }
+}
+```
+게임 정보를 담은 인스턴스를 시리얼라이즈 요청하고 반환된 값을 프리퍼런스에 저장한다.<br>
+반대로 불러올 때에는 디시리얼라이즈 과정을 거쳐 게임 정보 인스턴스를 반환한다.<br>
+<br>
+<br>
 
 ## 관련 Attribute
 * Serializable : 하위 목록들을 직렬화 시킨다.<br>
@@ -60,7 +326,7 @@ Color, Color32, LayerMask, AnimationCurve, Gradient, RectOffset, GUIStyle<br>
 * SerializeField : Public이 아닌 필드를 직렬화 시킨다.(바로 아래만)<br>
 * HideInInspector : 직렬화 여부와 관계없이 필드를 인스펙터 창에서 숨긴다.<br>
 
-HideInInspector vs NonSerialized<br>
+**HideInInspector vs NonSerialized**<br>
 HideInInspector는 인스펙터에서 수정된 적이 있다면 해당 값을 유지하지만<br>
 NonSerialized는 선언과 동시에 디폴트 값으로 설정된다.<br>
 -> 애초에 NonSerialized는 직렬화 대상에서 제외하는 기능이기 때문에 자동으로 인스펙터에서 숨겨지는 것.<br>
@@ -71,5 +337,6 @@ NonSerialized는 선언과 동시에 디폴트 값으로 설정된다.<br>
 
 ## 참조링크
 https://teddy.tistory.com/23 직렬화 예시 <br>
-https://birthbefore.tistory.com/11 직렬화를 사용해 세이브, 로드 하는 예시 <br>
+https://birthbefore.tistory.com/11 직렬화 예시 <br>
 https://codinggom.github.io/Unity-%EC%A7%81%EB%A0%AC%ED%99%94/ <br>
+https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=pxkey&logNo=221307184650 <br>
