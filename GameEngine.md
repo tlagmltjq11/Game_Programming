@@ -97,11 +97,49 @@ A게임 오브젝트와 B 게임 오브젝트에게 각각 충돌 메시지를 �
 A 게임 오브젝트와 A 게임 오브젝트의 Rigidbody를 제외한 다른 컴포넌트들, B 게임 오브젝트와 B 게임 오브젝트의 컴포넌트들은 충돌 사실을 모른다.
 '어쨌든' 메시지를 받기 때문에 추후 메시지를 통해 충돌 사실을 알게 되는 것이다.<br>
 <br>
+<br>
+
+## 🔔 유니티 계층 구조
+
+![유니티기본클래스계층구조](https://user-images.githubusercontent.com/43705434/129696298-d8310e6a-e7cc-4112-917f-80fc99eaba9e.PNG)<br>
+<br>
+
+유니티에서 제공하는 기본 클래스들의 대략적인 계층구조는 위와 같다.<br>
+가장 기본이되는 클래스는 Object이며 그 아래 GameObject와 Component 클래스가 존재한다.<br>
+**여기서 게임오브젝트와 컴포넌트 클래스는 아래와 같은 관계를 갖고 있다.**<br>
+
+![게임오브젝트와컴포넌트관계](https://user-images.githubusercontent.com/43705434/129696293-1a19a2fd-b8c3-437d-9509-542c32917c18.PNG)<br>
+<br>
+
+게임오브젝트가 컴포넌트를 갖고있는 즉 합성관계를 이루고 있다.<br>
+**그렇기에 위에서 게임오브젝트는 컴포넌트의 홀더와 같은 역할을 한다고 설명한 것이다.**<br>
+고로 게임오브젝트에 필요한 여러 컴포넌트들을 추가해주는 방식으로 개발한다.<br>
+
+**우리가 자주 사용하는 Transform, RigidBody 등은 당연히 게임오브젝트에 추가되기 위해 Component 클래스를 상속받고 있다.**<br>
+
+**MonoBehaviour 같은 경우 C# 스크립트가 컴포넌트로서 부착될 수 있도록 모든 스크립트가 상속받아야 하는 클래스이며,<br>
+더불어 유니티 이벤트 콜백 메서드등의 기능을 지원하고 있다.**<br>
+-> MonoBehaviour를 상속하지 않은 커스텀 클래스를 컴포넌트로서 장착할 수 없는 이유가 바로 이것이다.<br>
+
+**Unity Manual**<br>
+https://docs.unity3d.com/kr/530/ScriptReference/Object.html Object <br>
+https://docs.unity3d.com/kr/530/ScriptReference/GameObject.html GameObject <br>
+**-> AddComponent, transform 등 컴포넌트와 합성관계임을 다시한번 확인할 수 있다.**<br>
+https://docs.unity3d.com/kr/530/ScriptReference/Component.html Component <br>
+**-> gameObject 변수는 자신이 부착된 게임오브젝트 클래스를 의미하는 것.**<br>
+https://docs.unity3d.com/kr/530/ScriptReference/Behaviour.html Behaviour <br>
+-> Behaviour는 껐다켰다 할 수 있는 동작(behaviour)을 나타냄.<br>
+https://docs.unity3d.com/kr/530/ScriptReference/MonoBehaviour.html MonoBehaviour <br>
+-> MonoBehaviour는 모든 스크립트가 상속받는 기본 클래스<br>
+https://docs.unity3d.com/kr/530/ScriptReference/Transform.html Transform<br>
+-> Component 클래스를 상속받았음.<br>
+<br>
+<br>
 
 ## 🔔 MonoBehaviour
 위처럼 Unity가 보내는 **메세지를 받으려면 MonoBehaviour를 상속받아야 한다.**<br>
 MonoBehaviour 클래스는 컴포넌트들이 필요한 필수적인 **기초 기능**들을 제공하며, 유니티의 통제를 받게한다.<br>
-⭐ **즉 유니티에서 컴포넌트로서 동작하기위해 상속받아야하는 기본 클래스인 것이다.**<br>
+⭐ **즉 유니티에서 스크립트가 컴포넌트로서 동작하기위해 상속받아야하는 기본 클래스인 것이다.**<br>
 <br>
 <br>
 
