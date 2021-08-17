@@ -1,15 +1,13 @@
-## 직렬화
+## Serialization
 의미 자체는 **특정 객체(데이터)를 바이트의 나열(Stream) 혹은 스트링으로 바꿔서 파일이나 네트워크통신으로 Stream 가능하게 해주는 것이다.**<br>
 **-> 바이너리 스트림 or 스트링 형태로 변환했기 때문에 데이터베이스에 저장/읽기, 네트워크로 송신/수신이 간편해진다.**<br>
 반대로 직렬화된 데이터를 원래 객체(데이터)로 바꿔주는 것은 Deserialize(디시리얼라이즈, 역직렬화) 라고 한다.<br>
 결국 바이너리 데이터와 객체 데이터 사이의 인코딩과 디코딩인 것이다.<br>
 
-유니티는 기본적으로 Public 데이터만 직렬화함. -> 시리얼라이즈 어트리뷰트로 private도 직렬화하는것<br>
-하지만 구조상 public이어야 하지만 노출 시키면 안되는 것들이 몇가지 있게 된다.<br>
-이럴 경우 System.NonSerialized를 사용하게 된다.혹은 하이드인인스펙터?<br>
-
-에셋을 읽고 쓰는 과정, 인스펙터 윈도우, 프리팹, 리소스 폴더 등 직렬화는 여러곳에서 사용됨.<br>
-유니티에서 사용하는 프리팹은 게임오브젝트 한개 혹은 여러개를 시리얼라이즈 한 것이다.<br>
+에셋을 읽고 쓰는 과정, 인스펙터 윈도우, 프리팹, 리소스 폴더 등 직렬화는 여러곳에서 사용되고 있다.<br>
+-> 유니티에서 사용하는 프리팹은 게임오브젝트 한개 혹은 여러개를 시리얼라이즈 한 것이다.<br>
+<br>
+<br>
 
 ## Serialization는 왜 하는가?
 1. 네트워크로 송/수신하기 위해 사용한다.<br>
@@ -30,6 +28,8 @@
 **클래스 내의 필드가 직렬화되도록 하려면 다음의 조건을 만족해야한다.**<br>
 
 * public이거나 [SerializeField] 속성이 있어야한다.<br>
+-> 유니티는 기본적으로 Public 데이터만 직렬화한다.<br>
+-> Private은 SerializeField를 사용해야 직렬화가 가능하다.<br>
 * static이 아니어야한다.<br>
 * const가 아니어야한다.<br>
 * readonly가 아니어야한다.<br>
@@ -49,6 +49,23 @@ Color, Color32, LayerMask, AnimationCurve, Gradient, RectOffset, GUIStyle<br>
 
 직렬화가 지원되지 않는 타입은 **iserializationcallbackreceiver 인터페이스를 상속받아 직렬화가 가능한<br>
 필드타입으로 수정하여 사용할 수 있다.**<br>
+<br>
+<br>
+
+## 예시
+
+## 관련 Attribute
+* Serializable : 하위 목록들을 직렬화 시킨다.<br>
+* NonSerialized : 직렬화 대상에서 제외한다. -> 제외됐기에 인스펙터 창에서도 숨겨진다.<br>
+* SerializeField : Public이 아닌 필드를 직렬화 시킨다.(바로 아래만)<br>
+* HideInInspector : 직렬화 여부와 관계없이 필드를 인스펙터 창에서 숨긴다.<br>
+
+HideInInspector vs NonSerialized<br>
+HideInInspector는 인스펙터에서 수정된 적이 있다면 해당 값을 유지하지만<br>
+NonSerialized는 선언과 동시에 디폴트 값으로 설정된다.<br>
+-> 애초에 NonSerialized는 직렬화 대상에서 제외하는 기능이기 때문에 자동으로 인스펙터에서 숨겨지는 것.<br>
+-> HideInInspector는 말그대로 직렬화 여부와 관계없이 인스펙터 창에서 숨기는 용도!<br>
+**둘은 엄연히 기능이 다르다는 점 주의.**<br>
 <br>
 <br>
 
