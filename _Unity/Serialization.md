@@ -1,10 +1,10 @@
-## Serialization
+## 🔔 Serialization
 
 ![직렬화](https://user-images.githubusercontent.com/43705434/129681875-90cc5ca8-836c-43e2-96ad-40fdf0ecc544.PNG)<br>
 <br>
 
 의미 자체는 **특정 객체(데이터)를 바이트의 나열(Stream) 혹은 스트링으로 바꿔서 파일이나 네트워크통신으로 Stream 가능하게 해주는 것이다.**<br>
-**-> 바이너리 스트림 or 스트링 형태로 변환했기 때문에 데이터베이스에 저장/읽기, 네트워크로 송신/수신이 간편해진다.**<br>
+**-> 바이너리 스트림 or 스트링 형태로 변환했기 때문에 데이터베이스에 저장/읽기, 네트워크로 송신/수신이 간편해진다.** ⭐⭐<br>
 반대로 직렬화된 데이터를 원래 객체(데이터)로 바꿔주는 것은 Deserialize(디시리얼라이즈, 역직렬화) 라고 한다.<br>
 결국 바이너리 데이터와 객체 데이터 사이의 인코딩과 디코딩인 것이다.<br>
 
@@ -13,10 +13,10 @@
 <br>
 <br>
 
-## Serialization는 왜 하는가?
-1. 네트워크로 송/수신하기 위해 사용한다.<br>
-2. 데이터베이스나 파일에 저장하여 보관하기 위해 사용한다.<br>
-3. 정보은닉을 지키면서 인스펙터 창을 통해 조작하기위한 용도로도 사용한다<br>.
+## 🔔 Serialization는 왜 하는가?
+1. 네트워크로 송/수신하기 위해 사용한다. ⭐<br>
+2. 데이터베이스나 파일에 저장하여 보관하기 위해 사용한다. ⭐<br>
+3. 정보은닉을 지키면서 인스펙터 창을 통해 조작하기위한 용도로도 사용한다. ⭐<br>
 
 **2번 설명**<br>
 객체를 다른 컴퓨터나 프로그램이 종료되고도 남겨놓거나 재사용하고 싶다면 어떻게 해야할까?<br>
@@ -27,32 +27,33 @@
 <br>
 <br>
 
-## Unity의 Serialization 조건
+## 🔔 Unity의 Serialization 조건
 자바의 직렬화, 네트워크 직렬화 등등 각자의 환경에 직렬화는 직렬화 가능한 조건이 있다. 유니티도 마찬가지다.<br>
-**클래스 내의 필드가 직렬화되도록 하려면 다음의 조건을 만족해야한다.**<br>
+**클래스 내의 필드가 직렬화되도록 하려면 다음의 조건을 만족해야한다.** ⭐<br>
 
-* public이거나 [SerializeField] 속성이 있어야한다.<br>
+👉 public이거나 [SerializeField] 속성이 있어야한다.<br>
 -> 유니티는 기본적으로 Public 데이터만 직렬화한다.<br>
 -> Private은 SerializeField를 사용해야 직렬화가 가능하다.<br>
-* static이 아니어야한다.<br>
-* const가 아니어야한다.<br>
-* readonly가 아니어야한다.<br>
-* 직렬화가 가능한 필드타입이어야한다. (단순 필드 타입만 가능하다.)<br>
+👉 static이 아니어야한다.<br>
+👉 const가 아니어야한다.<br>
+👉 readonly가 아니어야한다.<br>
+👉 직렬화가 가능한 필드타입이어야한다. (단순 필드 타입만 가능하다.)<br>
 
 마지막 조건을 보면 모든 타입이 다 직렬화가 가능하지 않다는 것을 알 수 있다.<br>
-**직렬화가 가능한 단순 필드 타입은 다음을 얘기한다.**<br>
+**직렬화가 가능한 단순 필드 타입은 다음을 얘기한다.** ⭐<br>
 
-* [Serializable] 속성이 있는 비 추상, 일반 클래스<br>
-* [Serializable] 속성이 있는 커스텀 구조체<br>
-* UnityEngine.Object에서 파생된 오브젝트<br>
-* 프리미티브 데이터 타입(int, float, double, bool. string 등)<br>
-* 열거형 타입<br>
-* 특정 Unity 타입 : Vector2, Vector3, Vector4, Rect, Quaternion, Matrix4x4,<br>
+👉 [Serializable] 속성이 있는 비 추상, 일반 클래스<br>
+👉 [Serializable] 속성이 있는 커스텀 구조체<br>
+👉 UnityEngine.Object에서 파생된 오브젝트<br>
+👉 프리미티브 데이터 타입(int, float, double, bool. string 등)<br>
+👉 열거형 타입<br>
+👉 특정 Unity 타입 : Vector2, Vector3, Vector4, Rect, Quaternion, Matrix4x4,<br>
 Color, Color32, LayerMask, AnimationCurve, Gradient, RectOffset, GUIStyle<br>
 <br>
 
-직렬화가 지원되지 않는 타입은 **iserializationcallbackreceiver 인터페이스를 상속받아 직렬화가 가능한<br>
+직렬화가 지원되지 않는 타입은 **iserializationcallbackreceiver ⭐ 인터페이스를 상속받아 직렬화가 가능한<br>
 필드타입으로 수정하여 사용할 수 있다.**<br>
+<br>
 
 **클래스 직렬화를 통해 인스펙터에 노출되는 예시**<br>
 ![클래스직렬화1](https://user-images.githubusercontent.com/43705434/129681870-2d38517a-f077-45ec-abef-bbf829c266e1.PNG)<br>
@@ -60,7 +61,7 @@ Color, Color32, LayerMask, AnimationCurve, Gradient, RectOffset, GUIStyle<br>
 <br>
 <br>
 
-## 예시 - Serializer 구현
+## 🔔 예시 - Serializer 구현
 ```c#
 /*
  * 스트링으로 시리얼라이즈 & 디시리얼라이즈
@@ -145,9 +146,9 @@ public class Serializer
 게임 중 생성된 인스턴스를 생성하고 게임이 진행 되면서 인스턴스가 가지는 값들이 변경되었다.<br>
 그리고 이 상태를 그대로 저장하기위해 또는 서버로 전송하기 위해 시리얼라이즈가 필요한 상황이다.<br>
 이때 인스턴스를 파라미터로 시리얼라이저에게 전달한다.<br>
-**시리얼라이저는 전달받은 오브젝트를 시리얼라이즈 후 스트링 또는 바이트 배열 형태로 반환한다.**<br>
+**시리얼라이저는 전달받은 오브젝트를 시리얼라이즈 후 스트링 또는 바이트 배열 형태로 반환한다.** ⭐<br>
 반환받은 데이타를 저장또는 서버로 전달이 가능하다.<br>
-인스턴스를 시리얼라이즈하기 위해서는 **바이너리 포매터(BinaryFormatter)와 메모리 스트림(MemoryStream)이 필요하다.**<br>
+인스턴스를 시리얼라이즈하기 위해서는 **바이너리 포매터(BinaryFormatter)와 메모리 스트림(MemoryStream)이 필요하다.** ⭐<br>
 **시리얼라이즈 기능은 바이너리 포매터에 포함되어있다.** 이것으로 시리얼라이즈 할 때 파라미터를 인스턴스와 메모리 스트림을 전달하면<br>
 메모리 스트림에 인스턴스가 직렬화되어 들어간다. 여기까지의 과정은 똑같고, **메모리 스트림을 어떻게 가공하느냐에 따라 반환 값이 달라진다.<br>
 ToArray()를 사용하면 바이트 배열형태로 반환하고 ToArray() 한 값을 ToBase64String()로 컨버팅하게 되면 스트링 형태로 반환하게된다.**<br>
@@ -162,12 +163,12 @@ ToArray()를 사용하면 바이트 배열형태로 반환하고 ToArray() 한 �
 해당 데이타를 저장이나 전송할 때 사용하게된다. 그전에 MD5나 SHA-1 등의 암호화를 거치기를 권장한다.<br>
 
 ※ 주의 'base64String()'로 컨버팅 하지않고 그냥 ToString()을 하게되면 다른 플랫폼으로 전달 시 전달 된 곳에서 인식하지 못하는 경우도 있다.<br>
-반드시 base64 컨버팅하는 것을 추천한다.<br>
+반드시 base64 컨버팅하는 것을 추천한다. ⭐<br>
 <br>
 <br>
 
 
-## 예시 - Serializer 사용
+## 🔔 예시 - Serializer 사용
 
 ![직렬화예시2](https://user-images.githubusercontent.com/43705434/129681888-e72dca80-f438-4337-be07-dd9139c5a9e0.PNG)<br>
 <br>
@@ -333,22 +334,22 @@ public class SaveLoad
 <br>
 <br>
 
-## 관련 Attribute
-* Serializable : 하위 목록들을 직렬화 시킨다.<br>
-* NonSerialized : 직렬화 대상에서 제외한다. -> 제외됐기에 인스펙터 창에서도 숨겨진다.<br>
-* SerializeField : Public이 아닌 필드를 직렬화 시킨다.(바로 아래만)<br>
-* HideInInspector : 직렬화 여부와 관계없이 필드를 인스펙터 창에서 숨긴다.<br>
+## 🔔 관련 Attribute
+👉 Serializable : 하위 목록들을 직렬화 시킨다.<br>
+👉 NonSerialized : 직렬화 대상에서 제외한다. -> 제외됐기에 인스펙터 창에서도 숨겨진다.<br>
+👉 SerializeField : Public이 아닌 필드를 직렬화 시킨다.(바로 아래만)<br>
+👉 HideInInspector : 직렬화 여부와 관계없이 필드를 인스펙터 창에서 숨긴다.<br>
 
 **HideInInspector vs NonSerialized**<br>
 HideInInspector는 인스펙터에서 수정된 적이 있다면 해당 값을 유지하지만<br>
 NonSerialized는 선언과 동시에 디폴트 값으로 설정된다.<br>
 -> 애초에 NonSerialized는 직렬화 대상에서 제외하는 기능이기 때문에 자동으로 인스펙터에서 숨겨지는 것.<br>
 -> HideInInspector는 말그대로 직렬화 여부와 관계없이 인스펙터 창에서 숨기는 용도!<br>
-**둘은 엄연히 기능이 다르다는 점 주의.**<br>
+**둘은 엄연히 기능이 다르다는 점 주의.** ⭐<br>
 <br>
 <br>
 
-## 참조링크
+## 🔔 참조링크
 https://teddy.tistory.com/23 직렬화 예시 <br>
 https://birthbefore.tistory.com/11 직렬화 예시 <br>
 https://codinggom.github.io/Unity-%EC%A7%81%EB%A0%AC%ED%99%94/ <br>
