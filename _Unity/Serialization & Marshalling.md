@@ -381,7 +381,7 @@ NonSerialized는 선언과 동시에 디폴트 값으로 설정된다.<br>
 
 ex) C++ 로 작성된 프로그램에서 객체를 저장하거나 전송할 수 있는 형태로 묶어(마샬링) 다른 환경인 C#(닷넷)으로 전달하여<br>
 해당 C# 프로그램에서 마샬링으로 전달된 데이터를 다시 복원(언마샬링)하여 사용하는것이다.<br>
-예를 들면, function setWindowText()를 보쟈. 이 함수는 LPCTSTR(LPCSTR = long pointer constant t_string = const tchar * ) 을 다루지만<br>
+예를 들면, function setWindowText()를 보자. 이 함수는 LPCTSTR(LPCSTR = long pointer constant t_string = const tchar * ) 을 다루지만<br>
 System.String을 사용하지 않는 함수이다. 또한 이 함수의 반환값은 BOOL이라는 타입으로 변환 성공여부를 반환한다.<br>
 하지만 C# BOOL이 아닌 System.Boolean타입을 가지고 있기 때문에 이 함수를 사용할 수 없다.<br>
 다른 환경에서도 사용하기 위해서는 data type format을 변경하기 보다는 타입명만 바꿔주면 해결이 된다.<br>
@@ -392,7 +392,7 @@ System.Char[] ch = str.ToCharArray();<br>
 이 두개의 data는 다르다고 할 수 있을까?<br>
 답은 아니다.<br>
 둘다 같은 data 를 다루고 있고 str와 ch 변수 둘다 같은 방식으로 담기게 된다.<br>
-C#에서는 System.Int32 은 Window API는 INT를 가지고있으므로 System.Int32에서 INT로 정렬하려고 한다면<br>
+C#에서는 System.Int32, Window API는 INT를 가지고있으므로 System.Int32에서 INT로 정렬하려고 한다면<br>
 data type 만 변경하면 해결될 수 있다. (내용을 가공하거나 다른 형식으로 복사하여 변형시키는 등으로 해결하지 않아도 된다.)<br>
 <br>
 <br>
