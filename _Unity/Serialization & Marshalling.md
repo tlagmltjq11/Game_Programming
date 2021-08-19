@@ -4,6 +4,7 @@
 <br>
 
 의미 자체는 **특정 객체(데이터)를 바이트의 나열(Stream) 혹은 스트링으로 바꿔서 파일이나 네트워크통신으로 Stream 가능하게 해주는 것이다.**<br>
+쉽게는 객체의 상태를 저장하기 위해서 객체를 Byte stream 으로 변환하는 것을 의미한다고 알면 된다.<br>
 **-> 바이너리 스트림 or 스트링 형태로 변환했기 때문에 데이터베이스에 저장/읽기, 네트워크로 송신/수신이 간편해진다.** ⭐⭐<br>
 반대로 직렬화된 데이터를 원래 객체(데이터)로 바꿔주는 것은 Deserialize(디시리얼라이즈, 역직렬화) 라고 한다.<br>
 결국 바이너리 데이터와 객체 데이터 사이의 인코딩과 디코딩인 것이다.<br>
@@ -351,8 +352,63 @@ NonSerialized는 선언과 동시에 디폴트 값으로 설정된다.<br>
 <br>
 <br>
 
+## 🔔 Marshalling
+**마샬링이란 이기종간의 통신을 위해서 서로간의 데이터 형식을 맞추는 것을 의미한다.**<br>
+예를들면 Little Endian / Big Endian 형태의 이기종에서 통신을 하기위해 데이터 형식을 맞추는 것을 의미한다.<br>
+
+**저장 또는 전송에 적합한 다른 데이터 형식으로 변환하는 과정이다.<br>
+서버에 넘겨지는 인자, 리턴 값들을 프로그래밍 인터페이스에 맞도록 데이터를 조직화하고,<br>
+미리 정해진 다른 형식으로 변환하는것 이것이 프로그래밍에서의 마샬링이다.**<br>
+이는 XML로의 마샬링, Byte 스트림으로의 마샬링 등 다양한 방법이 있는데 이처럼 데이터 교환시<br>
+어떠한 정해진 표준에 맞게 해당 데이터를 가공하는 것이 마샬링이라면,<br>
+**가공된 데이터를 원격지에서 사용하기위한 과정을 언마샬링 이라고 한다.**<br>
+<br>
+
+마살링도 참조 마샬링과 값 마샬링으로 구분할 수 있다.<br>
+
+* 참조 마샬링(MBR): MarshalByRefObject 를 상속<br>
+객체의 메모리를 통째로 저장한 후 다른 머신에서 객체를 복원해서 사용하는 기술<br>
+
+* 값 마샬링(MBV): Serializable Attribute를 지정하거나 ISerializable 인터페이스를 구현<br>
+값 마샬링이란 객체를 핸들하기 위한 정보만을 묶어서 넘긴 후 그 정보를 이용해서 원격으로 객체를 핸들하는 기술<br>
+-> **직렬화는 값 마샬링의 한 종류이다!**<br>
+
+마샬링이란 어떤 언어(C#)로 작성된 프로그램의 출력 매개변수들(Object, Struct, Data 등)을<br>
+다른 언어(C++)로 작성된 프로그램의 입력으로 전달해야 하는 경우에 필요하다.<br>
+
+ex) C++ 로 작성된 프로그램에서 객체를 저장하거나 전송할 수 있는 형태로 묶어(마샬링) 다른 환경인 C#(닷넷)으로 전달하여<br>
+해당 C# 프로그램에서 마샬링으로 전달된 데이터를 다시 복원(언마샬링)하여 사용하는것이다.<br>
+예를 들면, function setWindowText()를 보쟈. 이 함수는 LPCTSTR(LPCSTR = long pointer constant t_string = const tchar * ) 을 다루지만<br>
+System.String을 사용하지 않는 함수이다. 또한 이 함수의 반환값은 BOOL이라는 타입으로 변환 성공여부를 반환한다.<br>
+하지만 C# BOOL이 아닌 System.Boolean타입을 가지고 있기 때문에 이 함수를 사용할 수 없다.<br>
+다른 환경에서도 사용하기 위해서는 data type format을 변경하기 보다는 타입명만 바꿔주면 해결이 된다.<br>
+예를 들어, System.String str = “Hello”;<br>
+이 부분을 System.Char의 array로 표현하면<br>
+System.Char[] ch = str.ToCharArray();<br>
+다음과 같이 나타낼 수 있을것이다.<br>
+이 두개의 data는 다르다고 할 수 있을까?<br>
+답은 아니다.<br>
+둘다 같은 data 를 다루고 있고 str와 ch 변수 둘다 같은 방식으로 담기게 된다.<br>
+C#에서는 System.Int32 은 Window API는 INT를 가지고있으므로 System.Int32에서 INT로 정렬하려고 한다면<br>
+data type 만 변경하면 해결될 수 있다. (내용을 가공하거나 다른 형식으로 복사하여 변형시키는 등으로 해결하지 않아도 된다.)<br>
+<br>
+<br>
+
+Marshalling 과 Serialization 은 원격 프로시저를 호출하는 것에서는 약간 유사하지만, 의도를 따지면 의미적으로 틀리다.<br>
+Marshalling 을 하게 되면, 원격 프로시저를 호출하는 것에서 함수의 parameter 값들 return 값들을 전달할 수 있다.<br>
+보통 Marshalling 은 여기저기에서 parameter 들을 얻는 반면, Serialization은 구조화된 데이터 를 byte stream 과 같은<br>
+primitive 형식 혹은 그 반대로 복사를 하는 것을 의미힌다.<br>
+이러한 의미에서 Serialization은 marshalling 의 pass-by-value 를 구현하는 것의 일종으로 볼 수 있다.<br>
+<br>
+<br>
+
 ## 🔔 참조링크
 https://teddy.tistory.com/23 직렬화 예시 <br>
 https://birthbefore.tistory.com/11 직렬화 예시 <br>
 https://codinggom.github.io/Unity-%EC%A7%81%EB%A0%AC%ED%99%94/ <br>
 https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=pxkey&logNo=221307184650 <br>
+https://devjaya.tistory.com/1 (마샬링) <br>
+https://hwanine.github.io/network/Marshalling/ (마샬링) <br>
+https://starblood.tistory.com/entry/Marshalling-vs-Serialization-마샬링-과-시리얼라이즈-의-차이 <br>
+<br>
+<br>
