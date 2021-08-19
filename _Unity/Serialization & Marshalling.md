@@ -366,13 +366,16 @@ NonSerialized는 선언과 동시에 디폴트 값으로 설정된다.<br>
 
 마살링도 참조 마샬링과 값 마샬링으로 구분할 수 있다.<br>
 
-* 참조 마샬링(MBR): MarshalByRefObject 를 상속<br>
+* 👉 참조 마샬링(MBR): MarshalByRefObject 를 상속<br>
 객체의 메모리를 통째로 저장한 후 다른 머신에서 객체를 복원해서 사용하는 기술<br>
 
-* 값 마샬링(MBV): Serializable Attribute를 지정하거나 ISerializable 인터페이스를 구현<br>
+* 👉 값 마샬링(MBV): Serializable Attribute를 지정하거나 ISerializable 인터페이스를 구현<br>
 값 마샬링이란 객체를 핸들하기 위한 정보만을 묶어서 넘긴 후 그 정보를 이용해서 원격으로 객체를 핸들하는 기술<br>
 -> **직렬화는 값 마샬링의 한 종류이다!**<br>
+<br>
+<br>
 
+## 🔔 Marshalling 예시
 마샬링이란 어떤 언어(C#)로 작성된 프로그램의 출력 매개변수들(Object, Struct, Data 등)을<br>
 다른 언어(C++)로 작성된 프로그램의 입력으로 전달해야 하는 경우에 필요하다.<br>
 
@@ -394,6 +397,7 @@ data type 만 변경하면 해결될 수 있다. (내용을 가공하거나 다�
 <br>
 <br>
 
+## 🔔 Marshalling과 직렬화
 Marshalling 과 Serialization 은 원격 프로시저를 호출하는 것에서는 약간 유사하지만, 의도를 따지면 의미적으로 틀리다.<br>
 Marshalling 을 하게 되면, 원격 프로시저를 호출하는 것에서 함수의 parameter 값들 return 값들을 전달할 수 있다.<br>
 보통 Marshalling 은 여기저기에서 parameter 들을 얻는 반면, Serialization은 구조화된 데이터 를 byte stream 과 같은<br>
