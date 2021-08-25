@@ -163,10 +163,12 @@ Awake 나 Start 같은 한번만 호출 되는 경우는 상대적으로 영향�
 <br>
 <br>
 
-Mono란?<br>
+**Mono란?**<br>
 Mono는 .Net 프레임워크(framework)의 오픈 소스 개발 플랫폼으로서, 크로스-플랫폼(cross-platform) 어플리케이션의 개발을 지원한다.<br>
 C#과 CLI(Common Language Infrastructure)에 기반을 두고 있다.<br>
--> 즉 .Net 프레임워크를 크로스 플랫폼으로 사용하기 위해 개발된 개발환경.<br>
+-> **즉 .Net 프레임워크를 크로스 플랫폼으로 사용하기 위해 개발된 개발환경.**<br>
+
+**윈도우 환경에서만 사용 가능하던 닷넷 프레임워크를 그 외의 운영체제, 즉 리눅스나 맥(Mac)OS에서도 사용 가능하도록 만든 프로젝트**<br>
 <br>
 
 유니티의 Mono<br>
