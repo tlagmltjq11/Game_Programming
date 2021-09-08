@@ -1,4 +1,8 @@
 ## Main Concept
+
+![충돌](https://user-images.githubusercontent.com/43705434/132451699-dbe8906b-e2e8-46ea-8bb3-e85966c88d0a.PNG)<br>
+<br>
+
 물체가 `충돌` 했다는 것은 수학적으로 해석하면 두 다면체나 다각형에<br>
 **동시에 포함되는 공간이 존재한다고 생각할 수 있다.**<br>
 그래서 물체 충돌 알고리즘이라는 것도 **두 도형이 겹쳤는지를 판단하는** 문제를 해결하는 방법이라고 보면 된다.<br>
@@ -24,6 +28,10 @@
 <br>
 
 ## Bounding Sphere (원, 구)
+
+![구충돌](https://user-images.githubusercontent.com/43705434/132451702-6f7a20a2-7818-4cba-b676-a9dec6a619a0.PNG)<br>
+<br>
+
 오브젝트를 원(구 포함)으로 감싼 후 충돌을 체크하는 방식이다.<br>
 **두 오브젝트의 원의 중심 사이의 거리와 두 원의 반지름의 합의 대소관계를 통해 충돌을 감지하게 된다.**<br>
 두 원의 중심 사이의 거리를 피타고라스를 통해 구하고, 해당 값이 두 원의 반지름의 합보다 작거나 같으면<br>
@@ -44,6 +52,10 @@ Bounding Box를 쓰느냐 Sphere을 쓰느냐의 문제는 그 물체가 박스�
 <br>
 
 ## AABB
+
+![AABB](https://user-images.githubusercontent.com/43705434/132451707-4bc0d083-093a-48da-8e51-dbadc370c9c5.PNG)<br>
+<br>
+
 **AABB는 Axis-Aligned Bounding Box의 줄임말로 기저 축에 정렬(평행)된 충돌 박스를 사용하는 방식이다.**<br>
 박스를 이루는 모든 사각형의 축들이 평행하기 때문에 해당 축으로 검사하면 되기에<br>
 **충돌 검출이 편리하다. 즉 계산량이 비교적 적다.**<br>
@@ -54,10 +66,18 @@ Bounding Box를 쓰느냐 Sphere을 쓰느냐의 문제는 그 물체가 박스�
 
 그렇기 때문에 주로 움직이지 않는, 회전하지 않는 물체들에 적용하는 것이 대부분이다.<br>
 <br>
+<br>
+
+![AABB좌표2](https://user-images.githubusercontent.com/43705434/132451708-0645057b-910c-459d-ba17-b4f702e1bbc8.PNG)<br>
+<br>
 
 AABB를 설정하려면, 해당 물체의 **x, y, z축 방향으로의 최대, 최소값만 알면 된다.**<br> 
 그 값들의 조합으로 나오는 **8가지의 점( x값 2개 * y값 2개 * z값 2개 = 8개 )으로<br>
 정의된 상자가 그 물체의 AABB다.**<br>
+<br>
+
+![AABB변이겹치는가](https://user-images.githubusercontent.com/43705434/132451710-7eaad956-624f-4c27-840e-65acbc7d3417.PNG)<br>
+<br>
 
 충돌체크 방식은 간단하다. **두 Box의 각 x,y,z축 변이 모두 겹치는지 체크하면 된다.**<br>
 x, y, z 축이 모두 겹치게 된다면 두 물체는 충돌된 상태이다.<br>
