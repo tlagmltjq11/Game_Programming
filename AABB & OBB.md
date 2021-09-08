@@ -132,7 +132,11 @@ AABB에 비해 좀더 경계가 세밀한 충돌을 할 수 있다는 장점을 
 두 다면체가 충돌하지 않는다는 것이다.<br>
 간단히 말해, 두 도형에 평행한 빛을 비추면 그 그림자가 겹치지 않는 각도가 존재한다고 할 수 있다.<br>
 
-그림 참고<br>
+![분리축](https://user-images.githubusercontent.com/43705434/132474169-6a968c43-431f-480f-ae4e-160e8fde91e2.PNG)<br>
+<br>
+
+![분리축2](https://user-images.githubusercontent.com/43705434/132474183-06db769f-7407-4fbf-a9cb-2c9315c81a0a.PNG)<br>
+<br>
 <br>
 
 분리축은 다음의 축들 중 하나에 평행한 축으로 결정된다.<br>
@@ -165,12 +169,6 @@ B의 면법선 벡터 6개, A의 변 12개와 B의 변 12개의 조합으로 만
 위에서 설명했듯이 두 Box를 특정 축에 투영시켰을 때, **겹치지 않는 상황을 발견하면 된다.**<br>
 즉 해당 축을 발견하면 되는 것이다.<br>
 **2D에서는 A오브젝트의 up, right 벡터 B오브젝트의 up, right 벡터로 총 4개의 축을 사용한다.**<br>
-
-![분리축](https://user-images.githubusercontent.com/43705434/132474169-6a968c43-431f-480f-ae4e-160e8fde91e2.PNG)<br>
-<br>
-
-![분리축2](https://user-images.githubusercontent.com/43705434/132474183-06db769f-7407-4fbf-a9cb-2c9315c81a0a.PNG)<br>
-<br>
 
 ![OOB](https://user-images.githubusercontent.com/43705434/132474187-05a89821-7dd8-4f2d-83ad-b2fcfdb7ed90.PNG)<br>
 <br>
