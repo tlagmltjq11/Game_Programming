@@ -1,12 +1,11 @@
 ## Main Concept
-
-![충돌](https://user-images.githubusercontent.com/43705434/132451699-dbe8906b-e2e8-46ea-8bb3-e85966c88d0a.PNG)<br>
-<br>
-
 물체가 `충돌` 했다는 것은 수학적으로 해석하면 두 다면체나 다각형에<br>
 **동시에 포함되는 공간이 존재한다고 생각할 수 있다.**<br>
 그래서 물체 충돌 알고리즘이라는 것도 **두 도형이 겹쳤는지를 판단하는** 문제를 해결하는 방법이라고 보면 된다.<br>
 일단 게임내의 물체의 **충돌을 판정하기 위해서는 충돌면이 필요하다.**<br>
+<br>
+
+![충돌](https://user-images.githubusercontent.com/43705434/132451699-dbe8906b-e2e8-46ea-8bb3-e85966c88d0a.PNG)<br>
 <br>
 
 그 물체를 이루는 모든 폴리곤으로 충돌을 체크한다면 정말 정교한 충돌을 구현할 수 있겠지만,<br>
@@ -52,13 +51,13 @@ Bounding Box를 쓰느냐 Sphere을 쓰느냐의 문제는 그 물체가 박스�
 <br>
 
 ## AABB
-
-![AABB](https://user-images.githubusercontent.com/43705434/132451707-4bc0d083-093a-48da-8e51-dbadc370c9c5.PNG)<br>
-<br>
-
 **AABB는 Axis-Aligned Bounding Box의 줄임말로 기저 축에 정렬(평행)된 충돌 박스를 사용하는 방식이다.**<br>
 박스를 이루는 모든 사각형의 축들이 평행하기 때문에 해당 축으로 검사하면 되기에<br>
 **충돌 검출이 편리하다. 즉 계산량이 비교적 적다.**<br>
+<br>
+
+![AABB](https://user-images.githubusercontent.com/43705434/132451707-4bc0d083-093a-48da-8e51-dbadc370c9c5.PNG)<br>
+<br>
 **하지만 오브젝트가 회전을 하더라도 사각형의 축은 변할 수 없기에, Box의 크기를 변하게 한다.**<br>
 이러한 특성 때문에 대부분의 경우 **Box와 오브젝트 형태의 차이가 심하여 정확한 충돌 검출이 어렵다.**<br>
 -> 또한 오브젝트가 회전함에 따라 **Box의 크기를 재설정해야 하기 때문에,<br>
@@ -67,18 +66,18 @@ Bounding Box를 쓰느냐 Sphere을 쓰느냐의 문제는 그 물체가 박스�
 그렇기 때문에 주로 움직이지 않는, 회전하지 않는 물체들에 적용하는 것이 대부분이다.<br>
 <br>
 <br>
+<br>
 
 ![AABB좌표2](https://user-images.githubusercontent.com/43705434/132451708-0645057b-910c-459d-ba17-b4f702e1bbc8.PNG)<br>
 <br>
-
 AABB를 설정하려면, 해당 물체의 **x, y, z축 방향으로의 최대, 최소값만 알면 된다.**<br> 
 그 값들의 조합으로 나오는 **8가지의 점( x값 2개 * y값 2개 * z값 2개 = 8개 )으로<br>
 정의된 상자가 그 물체의 AABB다.**<br>
 <br>
+<br>
 
 ![AABB변이겹치는가](https://user-images.githubusercontent.com/43705434/132451710-7eaad956-624f-4c27-840e-65acbc7d3417.PNG)<br>
 <br>
-
 충돌체크 방식은 간단하다. **두 Box의 각 x,y,z축 변이 모두 겹치는지 체크하면 된다.**<br>
 x, y, z 축이 모두 겹치게 된다면 두 물체는 충돌된 상태이다.<br>
 이 때 위에서 AABB를 설정하기 위한 **최소 좌표, 최대 좌표 2가지만 기억하고 있다면<br>
