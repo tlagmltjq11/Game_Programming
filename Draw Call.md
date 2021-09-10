@@ -453,7 +453,7 @@ LOD는 보통 **정적 LOD와 동적 LOD로 나뉘는데** 지형물에는 대�
 <br>
 
 ## 참조링크
-https://metamon9.tistory.com/6 <br>         
+https://metamon9.tistory.com/6 <br>      
 https://mentum.tistory.com/53 <br>
 https://wonsorang.tistory.com/493 <br>
 https://daniel9811.tistory.com/18 (LOD) <br>
