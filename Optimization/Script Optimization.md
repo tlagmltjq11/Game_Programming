@@ -550,3 +550,6 @@ sqrMagnitude를 사용하도록 하자.<br>
 **System.Math는 웬만해서 UnityEngine.Mathf보다 빠르다.**<br>
 <br>
 <br>
+
+## 참조링크
+https://rito15.github.io/posts/unity-opt-script-optimization/#%EC%BB%AC%EB%A0%89%EC%85%98-%EC%9E%AC%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0 <br>
