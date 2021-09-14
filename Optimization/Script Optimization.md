@@ -1,4 +1,4 @@
-* **GetComponent(), Find() 메소드 사용 시 캐싱해서 사용하기**<br>
+👉 **GetComponent(), Find() 메소드 사용 시 캐싱해서 사용하기**<br>
 GetComponent, Find, FindObjectOfType 등의 메소드는 자주 호출될 경우 성능에 악영향을 끼친다.<br>
 -> 오브젝트 및 컴포넌트들을 전부 탐색하므로..<br>
 따라서 객체 참조가 필요할 때마다 **Update에서 Get, Find 메소드들을 호출하는 방식은 지양하고,<br>
@@ -30,7 +30,7 @@ private void Update()
 <br>
 <br>
 
-* **GetComponent() 대신 TryGetComponent() 사용하기**<br>
+👉 **GetComponent() 대신 TryGetComponent() 사용하기**<br>
 https://medium.com/chenjd-xyz/unity-tip-use-trygetcomponent-instead-of-getcomponent-to-avoid-memory-allocation-in-the-editor-fe0c3121daf6<br>
 <br>
 
@@ -40,7 +40,7 @@ GetComponent() 메소드는 할당에 성공하거나 실패해도 언제나 GC 
 <br>
 <br>
 
-* **Object.name, GameObject.tag 사용하지 않기**<br>
+👉 **Object.name, GameObject.tag 사용하지 않기**<br>
 게임 오브젝트의 이름을 참조해야 할 때, .name 프로퍼티를 호출한다.<br>
 그리고 태그 비교를 해야 할 때, .tag 프로퍼티를 호출해서 ==, .Equals() 등으로 비교한다.<br>
 그런데 이런 호출 하나 하나가 전부 가비지를 한 개씩 생성한다.<br>
@@ -89,14 +89,14 @@ GameObject.CompareTag(string), Component.CompareTag(string) 메소드를 사용�
 <br>
 <br>
 
-* **비어있는 유니티 이벤트 메소드 방치하지 않기**<br>
+👉 **비어있는 유니티 이벤트 메소드 방치하지 않기**<br>
 Awake(), Update() 등의 유니티 기본 이벤트 메소드는 매직 메소드라고도 불리며,<br>
 **스크립트 내에 작성되어 있는 것만으로도 호출되어 성능을 소모한다.**<br>
 따라서 내용이 비어있는 유니티 기본 이벤트 메소드는 아예 **지워야 한다.**<br>
 <br>
 <br>
 
-* **StartCoroutine() 자주 호출하지 않기**<br>
+👉 **StartCoroutine() 자주 호출하지 않기**<br>
 **StartCoroutine() 메소드는 Coroutine 타입의 객체를 리턴하므로 GC의 먹이가 된다.**<br>
 따라서 짧은 주기로 코루틴을 자주 실행해야 하는 경우, UniTask, UniRx 등으로 대체하는 것이 좋다.<br>
 UniTask는 Cancellation 관리가 번거로우므로, UniRx의 MicroCoroutine을 활용하면 좋다.<br>
@@ -105,7 +105,7 @@ UniTask는 Cancellation 관리가 번거로우므로, UniRx의 MicroCoroutine을
 <br>
 <br>
 
-* **코루틴의 yield 캐싱하기**<br>
+👉 **코루틴의 yield 캐싱하기**<br>
 
 ```c#
 private IEnumerator SomeCoroutine()
@@ -137,7 +137,7 @@ private IEnumerator SomeCoroutine()
 <br>
 <br>
 
-* **참조 캐싱하기**<br>
+👉 **참조 캐싱하기**<br>
 위의 ‘메소드 호출 줄이기’와 같은 맥락이다.<br>
 이것은 주로 **프로퍼티 호출에 해당한다.**<br>
 예를 들어,<br>
@@ -204,7 +204,7 @@ Time.deltaTime 또한 내부 메소드 호출로 구현되어 있다.<br>
 <br>
 <br>
 
-* **빌드 이후 Debug.Log() 사용하지 않기**
+👉 **빌드 이후 Debug.Log() 사용하지 않기**
 Debug의 메소드들은 에디터에서 디버깅을 위해 사용하지만, 빌드 이후에도 호출되어 성능을 많이 소모한다.<br>
 따라서 아래처럼 Debug 클래스를 에디터 전용으로 래핑에서 사용할 경우, 이를 방지할 수 있다.<br>
 -> [정리해둔 파일](https://github.com/tlagmltjq11/CS_and_Etc/blob/main/Debug.md)<br>
@@ -220,7 +220,7 @@ public static class Debug
 <br>
 <br>
 
-* **Transform 변경은 한번에**
+👉 **Transform 변경은 한번에**
 position, rotation, scale을 한 메소드 내에서 여러 번 변경할 경우, 그 때마다 트랜스폼의 변경이 이루어진다.<br>
 그런데 트랜스폼이 **여러 자식 트랜스폼들을 갖고 있는 경우, 자식 트랜스폼도 함께 변경된다.**<br>
 **따라서 벡터로 미리 담아두고 최종 계산 이후, 트랜스폼에 단 한 번만 변경을 지정하는 것이 좋다.**<br>
@@ -228,7 +228,7 @@ position, rotation, scale을 한 메소드 내에서 여러 번 변경할 경우
 <br>
 <br>
 
-* **불필요하게 부모 자식 구조 늘리지 않기**
+👉 **불필요하게 부모 자식 구조 늘리지 않기**
 하이라키가 너무 복잡할 경우, 나름의 카테고리별로 빈 부모 오브젝트를 만들고<br>
 자식 오브젝트를 넣어서 정리하는 경우가 많다.<br>
 그런데 이것도 최소한으로 나누고, 불필요한 부모-자식 관계를 늘리지 않는 것이 좋다.<br>
@@ -240,7 +240,7 @@ position, rotation, scale을 한 메소드 내에서 여러 번 변경할 경우
 <br>
 <br>
 
-* **ScriptableObject 활용하기**<br>
+👉 **ScriptableObject 활용하기**<br>
 게임 내에서 항상 공통으로 참조하는 변수를 사용하는 경우,<br>
 각 객체의 필드로 사용하게 되면 동일한 데이터가 객체의 수만큼 메모리를 차지하게 된다.<br>
 반면에 스크립터블 오브젝트로 만들고, 이를 필드로 참조하여 공유하게 되면<br>
@@ -250,7 +250,7 @@ position, rotation, scale을 한 메소드 내에서 여러 번 변경할 경우
 <br>
 <br>
 
-* **필요하지 않은 경우, 리턴하지 않기**<br>
+👉 **필요하지 않은 경우, 리턴하지 않기**<br>
 
 ```c#
 private int SomeMethod() // 정수 타입을 리턴하는 메소드
@@ -272,7 +272,7 @@ private void Caller()
 <br>
 <br>
 
-* **new로 생성하는 부분 최대한 줄이기**<br>
+👉 **new로 생성하는 부분 최대한 줄이기**<br>
 클래스 타입으로 생성한 객체는 힙에 할당되며,<br>
 더이상 참조되지 않을 때 가비지 콜렉터에 의해 자동 수거된다.<br>
 그런데 너무 잦은 GC의 수거는 성능에 악영향을 끼칠 수 있다.<br>
@@ -293,7 +293,7 @@ private void Caller()
 <br>
 <br>
 
-* **오브젝트 풀링 사용하기**<br>
+👉 **오브젝트 풀링 사용하기**<br>
 게임오브젝트의 생성과 파괴는 성능의 소모가 작지 않다.<br>
 따라서 생성과 파괴가 빈번하게 발생한다면(총알, 폭탄 등)<br>
 **오브젝트 풀링을 통해 일정 개수의 게임오브젝트를 미리 생성하고<br>
@@ -303,7 +303,7 @@ https://rito15.github.io/posts/unity-object-pooling/<br>
 <br>
 <br>
 
-* **구조체 사용하기**<br>
+👉 **구조체 사용하기**<br>
 http://clarkkromenaker.com/post/csharp-structs/<br>
 동일한 데이터를 하나는 구조체, 하나는 클래스로 작성할 경우<br>
 클래스는 참조를 위해 8~24 바이트의 추가적인 메모리를 필요로 한다.<br>
@@ -377,7 +377,7 @@ ex) position, rotation 등과 같은 데이터 셋..<br>
 <br>
 <br>
 
-* **컬렉션 재사용하기**<br>
+👉 **컬렉션 재사용하기**<br>
 List를 메소드 내에서 반복적으로 할당하여 사용하는 경우가 많다.<br>
 
 ```c#
@@ -414,7 +414,7 @@ private void SomeMethod()
 <br>
 <br>
 
-* **List 사용할 때 주의할 점**<br>
+👉 **List 사용할 때 주의할 점**<br>
 **만약 배열을 사용할 때, 처음에는 비어있는 배열을 생성하고<br>
 새로운 값을 하나씩 넣을 때마다 크기가 조금 더 큰 배열을 만들고,<br>
 기존의 배열을 통째로 복제하는 방식으로 사용한다고 생각해보자.**<br>
@@ -436,7 +436,7 @@ new List(T)(100) 처럼 개수를 미리 지정하는 것이 좋다.<br>
 <br>
 <br>
 
-* **StringBuilder 사용하기**<br>
+👉 **StringBuilder 사용하기**<br>
 스트링의 연결(a + b)이 자주 발생하는 경우, StringBuilder.Append()를 활용하는 것이 좋다.<br>
 
 ```c#
@@ -472,7 +472,7 @@ sb.Append("b");
 <br>
 
 
-* **LINQ 사용 시 주의하기**<br>
+👉 **LINQ 사용 시 주의하기**<br>
 https://medium.com/swlh/is-using-linq-in-c-bad-for-performance-318a1e71a732<br>
 https://www.jacksondunstan.com/articles/4840<br>
 LINQ는 개발자에게 굉장한 편의성을 제공해주며, 대개 성능이 크게 나쁘지는 않다.<br>
@@ -487,7 +487,7 @@ LINQ의 대부분의 연산자는 중간 버퍼(일종의 배열)를 생성하�
 <br>
 <br>
 
-* **박싱, 언박싱 피하기**
+👉 **박싱, 언박싱 피하기**
 박싱(Boxing)은 값 타입이 참조 타입으로 암시적, 또는 명시적으로 캐스팅되는 것을 의미한다.<br>
 언박싱(Unboxing)은 참조 타입이 값 타입으로 명시적으로 캐스팅되는 것을 의미한다.<br>
 
@@ -520,7 +520,7 @@ foreach를 사용할 경우 매번 24byte의 추가적인 가비지가 발생한
 <br>
 <br>
 
-* **비싼 수학 계산 피하기**<br>
+👉 **비싼 수학 계산 피하기**<br>
 
 **나눗셈 대신 곱셈**<br>
 나눗셈이 곱셈보다 느리다는 것은 흔히 알려져 있는 사실이다.<br>
