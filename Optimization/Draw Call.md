@@ -1,3 +1,6 @@
+[Unite Seoul 2020 에서 강연한 최적화 관련 영상](https://www.youtube.com/watch?v=tT9LS53HRx4) <br>
+<br>
+
 ## 🔔 Draw Call
 드로우콜이 강조되는 이유는 대부분의 병목의 원인이 드로우콜에 있기 때문이다.<br> 
 -> 즉 드로우 콜의 횟수를 줄여, 최적화하는 과정이 대부분 필요하다는 의미다.<br>
