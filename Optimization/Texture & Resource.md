@@ -22,7 +22,10 @@ ex) **900 x 900 텍스쳐는 1024 x 1024로 변환되어 메모리에 로드된�
 
 애초에 텍스쳐를 POT으로 만들어야 하는 이유에 대해서 찾아보니 여러 답변을 들을 수 있었는데<br>
 압축 시 손실율을 줄이기 위해.. 혹은 HW가 애초에 POT 형식만을 처리할 수 있다는 등..<br>
-정확한 내용을 찾아보자.<br>
+https://gamedev.stackexchange.com/questions/26187/why-are-textures-always-square-powers-of-two-what-if-they-arent<br>
+**해당 링크에 정확한 답이 나와있었다. 간략히 말하자면 예전 그래픽카드의 데이터 처리 방식이<br>
+POT 및 정사각형을 고수했기 때문이라고 한다. 현재 보급되는 HW들은 non-POT도 처리할 수 있지만<br>
+호환성 및 메모리의 낭비를 줄이고자 최대한 POT크기, 정사각형의 텍스쳐를 사용하는 것이라고 한다.**<br>
 <br>
 <br>
 
