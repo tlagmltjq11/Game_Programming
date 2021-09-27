@@ -3,8 +3,6 @@
 <br>
 
 ```c#
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBehaviour<T>
@@ -26,6 +24,7 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBe
                 return null; 
             }
 
+            //Awake가 호출되지 않은 상황 즉 씬에 컴포넌트로서 부착되지 않은 상황이다.
             if (m_Instance == null)
             {
                 //인스턴스 존재 여부 확인
