@@ -2,6 +2,10 @@
 아직 Thread Safe는 적용하지 않은 상태.<br>
 <br>
 
+where T : SingletonMonoBehaviour<T> 부분에 대해서 헷갈린다면 해당 [링크](https://cafe.naver.com/unityhub/123621)에서 답변들 복기.<br>
+<br>
+<br>
+
 ```c#
 using UnityEngine;
 
