@@ -5,6 +5,7 @@
 일단 게임내의 물체의 **충돌을 판정하기 위해서는 충돌면이 필요하다.**<br>
 <br>
 
+
 ![충돌](https://user-images.githubusercontent.com/43705434/132451699-dbe8906b-e2e8-46ea-8bb3-e85966c88d0a.PNG)<br>
 <br>
 
