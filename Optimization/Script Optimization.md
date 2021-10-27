@@ -4,6 +4,7 @@ GetComponent, Find, FindObjectOfType 등의 메소드는 자주 호출될 경우
 따라서 객체 참조가 필요할 때마다 **Update에서 Get, Find 메소드들을 호출하는 방식은 지양하고,<br>
 최대한 Awake, Start 메소드에서 Get, Find 메소드들을 통해 객체들을 필드에 캐싱하여 사용해야 한다.**<br>
 
+
 예시<br>
 ```c#
 private void Update()
